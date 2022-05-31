@@ -5,12 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.github.omarmiatello.composetest.databinding.FragmentExampleBinding
 import kotlinx.coroutines.delay
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,24 +24,17 @@ class MainActivity : ComponentActivity() {
                     bool = !bool
                 }
             }
-            remember { println("I will be always remembered!") }
-            Text(text = "Current value: $bool")
             NavHost(
                 navController = rememberNavController(),
                 startDestination = "test1",
             ) {
                 composable(route = "test1") {
-                    remember { println("I will be remembered, but sometimes forgotten (race condition)") }
-                    DisposableEffect(Unit) {
-                        onDispose { println("disposed (current lifecycle: ${it.lifecycle.currentState}) - triggered by onForgotten()") }
-                    }
+                    AndroidViewBinding({ inflater, parent, attachToParent ->
+                        FragmentExampleBinding.inflate(inflater, parent, attachToParent)
+                    })
                 }
             }
+            Text(text = "Current value: $bool")
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        println("onStop()")
     }
 }
