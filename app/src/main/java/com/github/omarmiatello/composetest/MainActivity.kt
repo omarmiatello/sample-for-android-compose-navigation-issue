@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
             remember { println("I will be always remembered!") }
+            Text(text = "Current value: $bool")
             NavHost(
                 navController = rememberNavController(),
                 startDestination = "test1",
@@ -31,7 +32,6 @@ class MainActivity : ComponentActivity() {
                     DisposableEffect(Unit) {
                         onDispose { println("disposed (current lifecycle: ${it.lifecycle.currentState}) - triggered by onForgotten()") }
                     }
-                    Text(text = "Current value: $bool")
                 }
             }
         }
