@@ -4,7 +4,7 @@
 
 Jetpack Compose version: `1.1.1`
 
-Jetpack Compose component used: `androidx.navigation:navigation-compose:2.4.2`
+Jetpack Compose component used: `androidx.navigation:navigation-compose:2.4.2` (fixed in `2.5.0-rc01`)
 
 Android Studio Build: `Android Studio Electric Eel | 2022.1.1 Canary 2 - Build #AI-213.7172.25.2211.8571212, built on May 11, 2022 - Runtime version: 11.0.13+0-b1751.21-8125866 aarch64`
 
@@ -12,6 +12,8 @@ Kotlin version: `1.6.10`
 
 ### Description
 Suspected race condition. Compose's `NavHost` sometimes removes the current route, and trigger `onForgotten()`, causing all sorts of problems.
+
+*UPDATE*: fixed in `androidx.navigation:navigation-compose:2.5.0-rc01`
 
 ### Steps to Reproduce or Code Sample to Reproduce:
 1. launch the app
